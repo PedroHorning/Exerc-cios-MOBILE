@@ -1,67 +1,77 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Button, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const App = () => {
-  const [nota1, setNota1] = useState('');
-  const [nota2, setNota2] = useState('');
-  const [media, setMedia] = useState(null);
+import SistemaNotas from './src/SistemaNotas';
+import Navegação from './src/Navegação';
+import FlatList from './src/FlatList';
 
-  const calcularMedia = () => {
-    if (nota1 && nota2) {
-      const nota1Float = parseFloat(nota1);
-      const nota2Float = parseFloat(nota2);
-      const calculoMedia = (nota1Float + nota2Float) / 2;
-      setMedia(calculoMedia.toFixed(2));
-    }
-  };
-
+// Componentes para cada tela
+function TelaInicio({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Calculadora de Média</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite a primeira nota"
-        keyboardType="numeric"
-        value={nota1}
-        onChangeText={setNota1}
+      <Button
+        title="Ir para Sistema Notas"
+        onPress={() => navigation.navigate('Tela1')}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Digite a segunda nota"
-        keyboardType="numeric"
-        value={nota2}
-        onChangeText={setNota2}
+      <Button
+        title="Ir para Navegação"
+        onPress={() => navigation.navigate('Tela2')}
       />
-      <Button title="Calcular Média" onPress={calcularMedia} />
-      {media && <Text style={styles.result}>Média: {media}</Text>}
+      <Button
+        title="Ir para Flat List"
+        onPress={() => navigation.navigate('Tela3')}
+      />
     </View>
   );
-};
+}
+
+function Tela1() {
+  return (
+    <View style={styles.container}>
+      <SistemaNotas />
+    </View>
+  );
+}
+
+function Tela2() {
+  return (
+    <View style={styles.container}>
+       <Navegação />
+    </View>
+  );
+}
+
+function Tela3() {
+  return (
+    <View style={styles.container}>
+       <FlatList />
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Inicio">
+        <Stack.Screen name="Inicio" component={TelaInicio} />
+        <Stack.Screen name="Tela1" component={Tela1} />
+        <Stack.Screen name="Tela2" component={Tela2} />
+        <Stack.Screen name="Tela3" component={Tela3} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-  },
-  input: {
-    width: '80%',
-    marginBottom: 16,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  result: {
-    marginTop: 16,
-    fontSize: 18,
   },
 });
 
 export default App;
-
