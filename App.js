@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SistemaNotas from './src/SistemaNotas';
 import Navegação from './src/Navegação';
 import FlatList from './src/FlatList';
+import FlatImage from './src/FlatImage';
 
 // Componentes para cada tela
 function TelaInicio({ navigation }) {
@@ -20,8 +21,12 @@ function TelaInicio({ navigation }) {
         onPress={() => navigation.navigate('Tela2')}
       />
       <Button
-        title="Ir para Flat List"
+        title="Ir para Flat List de cores"
         onPress={() => navigation.navigate('Tela3')}
+      />
+      <Button
+        title="Ir para Flat List de imagens"
+        onPress={() => navigation.navigate('Tela4')}
       />
     </View>
   );
@@ -51,6 +56,14 @@ function Tela3() {
   );
 }
 
+function Tela4() {
+  return (
+    <View style={styles.container}>
+       <FlatImage />
+    </View>
+  );
+}
+
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -61,6 +74,7 @@ function App() {
         <Stack.Screen name="Tela1" component={Tela1} />
         <Stack.Screen name="Tela2" component={Tela2} />
         <Stack.Screen name="Tela3" component={Tela3} />
+        <Stack.Screen name="Tela4" component={Tela4} />
       </Stack.Navigator>
     </NavigationContainer>
   );
