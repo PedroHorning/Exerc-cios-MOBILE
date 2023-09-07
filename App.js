@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SistemaNotas from './src/SistemaNotas';
-import Navegação from './src/Navegação';
 import FlatList from './src/FlatList';
 import FlatImage from './src/FlatImage';
+import ApiExterna from './src/ApiExterna';
 
 // Componentes para cada tela
 function TelaInicio({ navigation }) {
@@ -17,7 +17,7 @@ function TelaInicio({ navigation }) {
         onPress={() => navigation.navigate('Tela1')}
       />
       <Button
-        title="Ir para Navegação"
+        title="Ir para API Externa"
         onPress={() => navigation.navigate('Tela2')}
       />
       <Button
@@ -43,7 +43,7 @@ function Tela1() {
 function Tela2() {
   return (
     <View style={styles.container}>
-       <Navegação />
+       <ApiExterna />
     </View>
   );
 }
